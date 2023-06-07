@@ -109,7 +109,7 @@ CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/oriented_rcnn/oriented-rcnn-
 ```
 #### Format for submission
 ```sh
-# config submission file path in tools_dou/test2submit.py
+# config submission file path in tools_dou/test2submit_planeship98.py
 python tools_dou/test2submit_planeship98.py
 ```
 
