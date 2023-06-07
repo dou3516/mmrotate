@@ -1,3 +1,125 @@
+# Introduction
+This repo is forked from [openmmlab/mmrotate](https://github.com/open-mmlab/mmrotate).
+
+## New features
+- 2023.6.1: add support CBA2023 Track 3: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635) and Track 5: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
+
+## Get started
+
+Refer to [official guide](https://mmrotate.readthedocs.io/en/1.x/get_started.html).
+
+### Prerequisites
+MMRotate works on Linux and Windows. It requires Python 3.7+, CUDA 9.2+ and PyTorch 1.6+
+
+Step 0. Download and install Miniconda from the official website.
+Step 1. Create a conda environment and activate it.
+
+```sh
+conda create mmrotate-1.x-base python=3.9
+conda activate mmrotate-1.x-base
+```
+
+Step 2. Install PyTorch following [official instructions](https://pytorch.org/get-started/locally/), e.g.
+
+```sh
+conda install pytorch==1.10.0 torchvision==0.11.0 torchaudio==0.10.0 cudatoolkit=11.3 -c pytorch -c conda-forge
+```
+
+### Installation
+
+Step 0. Install MMEngine and MMCV using MIM.
+
+```sh
+pip install -U openmim
+mim install mmengine
+mim install "mmcv>=2.0.0rc2"`
+```
+
+Step 1. Install MMDetection as a dependency.
+
+```sh
+mim install 'mmdet>=3.0.0rc2'
+```
+
+Step 2. Install MMRotate.
+
+```sh
+git clone https://github.com/dou3516/mmrotate.git -b 1.x
+# "-b dev-1.x" means checkout to the `dev-1.x` branch.
+cd mmrotate
+pip install -v -e .
+# "-v" means verbose, or more output
+# "-e" means installing a project in editable mode,
+# thus any local modifications made to the code will take effect without reinstallation.
+```
+
+## Data prepare
+
+### Track 3
+Data directory should be like:
+```sh
+└── data
+    └──2023_CBAC_ship_r1
+        ├── test
+        │   └── images
+        └─── trainval
+            ├── images
+            └── annfiles
+```
+
+### Track 5
+```sh
+└── data
+    └──2023_CBAC_planeship_r1
+        ├── test
+        │   └── images
+        └─── trainval
+            ├── images
+            └── annfiles
+```
+
+## Usage
+### Track 3: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635)
+#### Train
+```sh
+# rotated_rtmdet, 12 epochs score 0.93+
+CUDA_VISIBLE_DEVICES=0 python tools/train.py configs/rotated_rtmdet/rotated_rtmdet_l-1x-shiprs133_1024.py
+# oriented_rcnn, 12 epochs score 0.94+, with more epochs 0.95+, with TTA 0.96+
+CUDA_VISIBLE_DEVICES=0 python tools/train.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024.py
+```
+
+#### Test 
+```sh
+CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024.py work_dirs/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024/epoch_12.pth
+```
+#### Format for submission
+```sh
+# config submission file path in tools_dou/test2submit.py
+python tools_dou/test2submit.py
+```
+
+### Track 5: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
+#### Train
+```sh
+CUDA_VISIBLE_DEVICES=0 python tools/train.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_planeship98_1024.py
+```
+#### Test for submission
+```sh
+CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_planeship98_1024.py work_dirs/oriented-rcnn-le90_swin-tiny_fpn_1x_planeship98_1024/epoch_12.pth
+```
+#### Format for submission
+```sh
+# config submission file path in tools_dou/test2submit.py
+python tools_dou/test2submit_planeship98.py
+```
+
+### Attentions
+- default batch_size=8
+- BN in configs is 'BN'
+
+
+# Below is original README of openmmlab/mmrotate
+
 <div align="center">
   <img src="resources/mmrotate-logo.png" width="450"/>
   <div>&nbsp;</div>
