@@ -1,8 +1,12 @@
 # Introduction
 This repo is forked from [openmmlab/mmrotate](https://github.com/open-mmlab/mmrotate).
 
+## TODO
+- [ ] TTA
+- [ ] New networks
+
 ## New features
-- 2023.6.1: add support CBA2023 Track 3: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635) and Track 5: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
+- 2023.6.1: add support CBA2023 Track: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635) and Track: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
 
 ## Get started
 
@@ -55,7 +59,7 @@ pip install -v -e .
 
 ## Data prepare
 
-### Track 3
+### Track: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635)
 Data directory should be like:
 ```sh
 └── data
@@ -67,7 +71,7 @@ Data directory should be like:
             └── annfiles
 ```
 
-### Track 5
+### Track: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
 ```sh
 └── data
     └──2023_CBAC_planeship_r1
@@ -79,7 +83,7 @@ Data directory should be like:
 ```
 
 ## Usage
-### Track 3: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635)
+### Track: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635)
 #### Train
 ```sh
 # rotated_rtmdet, 12 epochs score 0.93+
@@ -98,7 +102,7 @@ CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/oriented_rcnn/oriented-rcnn-
 python tools_dou/test2submit.py
 ```
 
-### Track 5: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
+### Track: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
 #### Train
 ```sh
 CUDA_VISIBLE_DEVICES=0 python tools/train.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_planeship98_1024.py
