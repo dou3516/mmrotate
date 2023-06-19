@@ -4,7 +4,7 @@ import os
 import os.path as osp
 
 from mmdet.utils import register_all_modules as register_all_modules_mmdet
-from mmengine.config import Config, DictAction
+from mmengine.config import Config, DictAction, ConfigDict
 from mmengine.evaluator import DumpResults
 from mmengine.registry import RUNNERS
 from mmengine.runner import Runner
@@ -49,6 +49,10 @@ def parse_args():
         default='none',
         help='job launcher')
     parser.add_argument('--local_rank', type=int, default=0)
+    parser.add_argument(
+        '--tta',
+        action='store_true',
+        help='Whether to use test time augmentation')
     args = parser.parse_args()
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)
@@ -102,6 +106,19 @@ def main():
 
     if args.show or args.show_dir:
         cfg = trigger_visualization_hook(cfg, args)
+
+    if args.tta:
+        assert 'tta_model' in cfg, 'Cannot find ``tta_model`` in config.' \
+                                   " Can't use tta !"
+        assert 'tta_pipeline' in cfg, 'Cannot find ``tta_pipeline`` ' \
+                                      "in config. Can't use tta !"
+
+        cfg.model = ConfigDict(**cfg.tta_model, module=cfg.model)
+        test_data_cfg = cfg.test_dataloader.dataset
+        while 'dataset' in test_data_cfg:
+            test_data_cfg = test_data_cfg['dataset']
+
+        test_data_cfg.pipeline = cfg.tta_pipeline
 
     # build the runner from config
     if 'runner_type' not in cfg:

@@ -2,10 +2,11 @@
 This repo is forked from [openmmlab/mmrotate](https://github.com/open-mmlab/mmrotate).
 
 ## TODO
-- [ ] TTA
+- [x] TTA
 - [ ] New networks
 
 ## New features
+- 2023.6.19: add TTA from [zytx121's pull](https://github.com/open-mmlab/mmrotate/pull/771)
 - 2023.6.1: add support CBA2023 Track: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635) and Track: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
 
 ## Get started
@@ -92,9 +93,13 @@ CUDA_VISIBLE_DEVICES=0 python tools/train.py configs/rotated_rtmdet/rotated_rtmd
 CUDA_VISIBLE_DEVICES=0 python tools/train.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024.py
 ```
 
-#### Test 
+#### Test
 ```sh
 CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024.py work_dirs/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024/epoch_12.pth
+```
+Test with TTA (add --tta):
+```sh
+CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/oriented_rcnn/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024.py work_dirs/oriented-rcnn-le90_swin-tiny_fpn_1x_shiprs133_1024/epoch_12.pth --tta
 ```
 #### Format for submission
 ```sh

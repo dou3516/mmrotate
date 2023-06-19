@@ -1,4 +1,8 @@
-_base_ = './oriented-rcnn-le90_r50_fpn_1x_shiprs133_1024.py'
+_base_ = [
+    './oriented-rcnn-le90_r50_fpn_1x_shiprs133_1024.py',
+    '../_base_/tta/tta.py'
+    ]
+
 pretrained = 'https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_tiny_patch4_window7_224.pth'  # noqa
 
 depths = [2, 2, 6, 2]
