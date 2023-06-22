@@ -6,6 +6,7 @@ This repo is forked from [openmmlab/mmrotate](https://github.com/open-mmlab/mmro
 - [ ] New networks
 
 ## New features
+- 2023.6.22: disable muliple scales in tta.py. It's unstable and need more finetune.
 - 2023.6.19: add TTA from [zytx121's pull](https://github.com/open-mmlab/mmrotate/pull/771)
 - 2023.6.1: add support CBA2023 Track: [细粒度密集船只目标检测任务](https://www.datafountain.cn/competitions/635) and Track: [基于亚米级影像的精细化目标检测](https://www.datafountain.cn/competitions/637)
 
