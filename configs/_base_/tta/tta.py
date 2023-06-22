@@ -2,7 +2,8 @@ tta_model = dict(
     type='RotatedTTAModel',
     tta_cfg=dict(nms=dict(type='nms_rotated', iou_threshold=0.1), max_per_img=2000))
 
-img_scales = [(800, 800), (1024, 1024), (1280, 1280)]
+# img_scales = [(800, 800), (1024, 1024), (1280, 1280)]
+img_scales = [(1024, 1024)]
 
 tta_pipeline = [
     dict(type='mmdet.LoadImageFromFile', file_client_args=dict(backend='disk')),
@@ -26,6 +27,12 @@ tta_pipeline = [
                     size=(1024, 1024),
                     pad_val=dict(img=(114, 114, 114))),
             ],
+            # [
+            #     dict(
+            #         type='mmdet.Pad',
+            #         size=(1280, 1280),
+            #         pad_val=dict(img=(114, 114, 114))),
+            # ],
             [
                 dict(
                     type='mmdet.PackDetInputs',
